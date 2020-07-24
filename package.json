@@ -1,0 +1,14 @@
+{
+  "name": "nike-buy-bot-uk",
+  "version": "1.0.0",
+  "description": "A bot using Node.js / puppeteer that buys a Nike shoe when it drops",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "puppeteer": "2.0.0"
+  },
+  "scripts": {
+    "start": "node bot.js"
+  },
+  "author": "Anonymous Cat <fake@mailinator.com>",
+  "license": "MIT"
+}
