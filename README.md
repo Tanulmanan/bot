@@ -1,6 +1,6 @@
 # Nike Buy Bot (UK edition)
 
-This is will nike shoes from the UK website.
+This is will nike shoes from the UK SNKRS website.
 
 # Getting Started
 
@@ -12,18 +12,11 @@ The only requirement is Node.js. [Install Node.js](https://nodejs.org/en/downloa
 
 All variables that need to be configured are in the .env file. Make sure to set these to the appropriate values.
 
-```
-FIRST_NAME="Jane"
-LAST_NAME="Doe"
-ADDRESS_LINE="Film House 142 Wardour St"
-CITY="Soho"
-POSTCODE="W1F 8DD"
+``` 
 EMAIL="example@email.com"
-PHONE="XXXXXXXXXXXX"
+PASSWORD="XXXXXXXXXXXX"
 SIZE="UK 8"
 URL="https://www.nike.com/gb/t/blazer-mid-77-vintage-shoe-pMfjs8/BQ6806-100"
-CARD="XXXXXXXXXXXXXXXX"
-EXPIRY_DATE="MMYY"
 CVC="XXX"
 BROWSER="YES"
 BUY="NO"
@@ -35,20 +28,20 @@ The bot is a standard node application and follows the usual steps.
 
 1. Clone the repository
 
-```bash
+``` bash
 git clone https://github.com/SamtheSaint/nike-buy-bot.git
 ```
 
 2. Install the application
 
-```bash
+``` bash
 npm install
 # or yarn install
 ```
 
 3. Run the application
 
-```bash
+``` bash
 npm start
 ```
 
