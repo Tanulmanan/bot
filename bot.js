@@ -20,9 +20,9 @@ const scrollToSelector = async (page, selector) => {
 // main flow
 const main = async () => {
   const browser = await puppeteer.launch({
-    args: ["--disable-web-security"],
+    args: ["--disable-web-security", '--disable-features=IsolateOrigins,site-per-process'],
     ignoreHTTPSErrors: true,
-    headless: process.env.BROWSER === "YES" ? false : true,
+    headless: false,
   });
 
   const page = await browser.newPage();
@@ -93,6 +93,17 @@ const main = async () => {
     })
   }()
 
+  // SECTION - error message
+  // wait for error message
+  await page.waitForSelector(".error-code-btn")
+  await async function () {
+    await page.evaluate(() => {
+      const btn = document.querySelector(".error-code-btn")
+      btn.click()
+    })
+  }()
+  // !SECTION
+
   // wait for shipping
   await page.waitForSelector("#shipping");
   await scrollToSelector(page, ".continuePaymentBtn");
@@ -105,19 +116,41 @@ const main = async () => {
     })
   }()
 
+  // wait for a two seconds
+  await page.waitFor(2000)
+
   // scroll to payment
   await scrollToSelector(page, "#payment")
 
   // fill in CVC
   await async function () {
-    const elementHandle = await page.$(".credit-card-iframe-cvv");
+    const elementHandle = await page.$("iframe.credit-card-iframe-cvv");
     const frame = await elementHandle.contentFrame();
-    await frame.type("input#cvNumber", userData.cvc, { delay: 50 });
+    await frame.type("form#creditCardForm >div > input", userData.cvc, { delay: 50 })
   }()
 
-  // wait for a minute before closing browser
-  await page.waitFor(60 * 1000);
-  await browser.close();
+  // click review order button
+  await async function () {
+    await page.evaluate(() => {
+      const btn = document.querySelector(".continueOrderReviewBtn")
+      btn.click()
+    })
+  }()
+
+  // wait for place order button
+  await page.waitForSelector(".placeOrderBtn")
+
+  // click place order button
+  await async function () {
+    await page.evaluate((buy) => {
+      const btn = document.querySelector(".placeOrderBtn")
+      if (buy) {
+        btn.click()
+      } else {
+        btn.innerHTML = "Clicking this will buy the shoe"
+      }
+    }, process.env.BUY == "YES")
+  }()
 };
 
 main();
