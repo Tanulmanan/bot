@@ -124,17 +124,19 @@ const main = async () => {
   }()
 
   // wait for a two seconds
-  await page.waitFor(5000)
+  await page.waitFor(2000)
 
   // scroll to payment
   await scrollToSelector(page, "#payment")
 
   // fill in CVC
-  await async function () {
-    const elementHandle = await page.$("iframe.credit-card-iframe-cvv");
-    const frame = await elementHandle.contentFrame();
-    await frame.type("form#creditCardForm >div > input", userData.cvc, { delay: 50 })
-  }()
+  if (userData.cvc.length > 0) {
+    await async function () {
+      const elementHandle = await page.$("iframe.credit-card-iframe-cvv");
+      const frame = await elementHandle.contentFrame();
+      await frame.type("form#creditCardForm >div > input", userData.cvc, { delay: 50 })
+    }()
+  }
 
   // click review order button
   await async function () {
