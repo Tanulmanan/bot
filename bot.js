@@ -1,6 +1,13 @@
 // external library imports
-require("dotenv").config();
+const fs = require('fs')
+const dotenv = require("dotenv")
+const config = dotenv.parse(fs.readFileSync(process.argv[2]))
 const puppeteer = require("puppeteer-extra");
+
+// load config
+for (const k in config) {
+  process.env[k] = config[k]
+}
 
 // user agent data
 const userData = {
