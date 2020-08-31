@@ -124,7 +124,7 @@ const main = async () => {
   }()
 
   // wait for a two seconds
-  await page.waitFor(2000)
+  await page.waitFor(5000)
 
   // scroll to payment
   await scrollToSelector(page, "#payment")
