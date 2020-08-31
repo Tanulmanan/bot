@@ -1,6 +1,6 @@
 // external library imports
 require("dotenv").config();
-const puppeteer = require("puppeteer");
+const puppeteer = require("puppeteer-extra");
 
 // user agent data
 const userData = {
